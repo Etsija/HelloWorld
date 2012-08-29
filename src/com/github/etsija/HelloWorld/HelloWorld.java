@@ -1,7 +1,6 @@
 package com.github.etsija.HelloWorld;
 
 import java.util.logging.Logger;
-
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
