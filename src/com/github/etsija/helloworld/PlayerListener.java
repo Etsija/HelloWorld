@@ -1,4 +1,4 @@
-package com.github.etsija.HelloWorld;
+package com.github.etsija.helloworld;
 
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
