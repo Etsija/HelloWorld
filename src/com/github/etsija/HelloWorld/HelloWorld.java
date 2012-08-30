@@ -1,14 +1,7 @@
 package com.github.etsija.HelloWorld;
 
 import java.util.logging.Logger;
-import org.bukkit.ChatColor;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 // This plugin works as a personal playground and template for new plugins
@@ -18,9 +11,9 @@ public class HelloWorld extends JavaPlugin {
 	
 	// This method is called when the plugin is enabled
 	public void OnEnable() {
-		// Register all listeners
-		getServer().getPluginManager().registerEvents(new pListener(), this);
-		getServer().getPluginManager().registerEvents(new eListener(), this);
+		
+		// Create the player listener
+		new PlayerListener(this);
 		
 		_log.info("[HelloWorld] enabled!");
 	}
@@ -33,7 +26,7 @@ public class HelloWorld extends JavaPlugin {
 	// ------------------------------------------------------------------------
 	// Listeners
 	// ------------------------------------------------------------------------
-	
+/*	
 	// Player listener
 	public class pListener implements Listener {
 		
@@ -57,7 +50,7 @@ public class HelloWorld extends JavaPlugin {
 			player.sendMessage(ChatColor.GREEN + "Why Hello, " + player);
 		}
 	}
-	
+	*/
 	// Entity listener
 	public class eListener implements Listener {
 		
