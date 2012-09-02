@@ -18,13 +18,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class HelloWorld extends JavaPlugin {
 
 	private Logger _log = Logger.getLogger("Minecraft"); // Write debug info to console
-	File configFile;
-	File messagesFile;
-	FileConfiguration config;
-	FileConfiguration messages;
-	private boolean debug;
-	private String welcomeMessage;
-	private String testMessage;
+	File configFile;				// config.yml
+	File messagesFile;				// messages.yml
+	FileConfiguration config;		// configuration object for config.yml
+	FileConfiguration messages;		// configuration object for messages.yml
+	private boolean debug;			// 
+	private String welcomeMessage;	// plugin config parameters
+	private String testMessage;		//
 	
 	// This method is called when the plugin is enabled
 	public void onEnable() {
@@ -48,7 +48,7 @@ public class HelloWorld extends JavaPlugin {
 		loadYaml(configFile, config);
 		loadYaml(messagesFile, messages);
         
-		// Data structures for the default parameter values
+		// Set the default parameter values
 		final Map<String, Object> configParams = new HashMap<String, Object>();
 		configParams.put("general.debug", "true");
 		
@@ -59,19 +59,12 @@ public class HelloWorld extends JavaPlugin {
 		setDefaultValues(config, configParams);
 		setDefaultValues(messages, messageParams);
 		
-		/*
-		// If config does not include a default parameter, add it
-		for (final Entry<String, Object> e : configParams.entrySet())
-			if (!config.contains(e.getKey()))
-				config.set(e.getKey(), e.getValue());
-		for (final Entry<String, Object> e : messageParams.entrySet())
-			if (!messages.contains(e.getKey()))
-				messages.set(e.getKey(), e.getValue());
-		*/
-		
+		// And save them to the files, if they don't already contain such parameters
+		// This is also a great way to correct mistyping of the config params (by the users)
 		saveYaml(configFile, config);
 		saveYaml(messagesFile, messages);
 		
+		// Finally, import all needed config params from the corresponding config files
 		debug = config.getBoolean("general.debug");
 		welcomeMessage = messages.getString("welcome");
 		testMessage = messages.getString("testmessage");
@@ -90,10 +83,16 @@ public class HelloWorld extends JavaPlugin {
 	
 	// This method is called when the plugin is disabled
 	public void onDisable() {
+		saveYaml(configFile, config);
+		saveYaml(messagesFile, messages);
 		_log.info("[HelloWorld] disabled!");
 	}
 	
-	// Set a default value for a parameter if it doesn't already exist
+	//////////////////////////////////////
+	// Plugin's file configuration methods
+	//////////////////////////////////////
+	
+	// Set default values for parameters if they don't already exist
 	public void setDefaultValues(FileConfiguration config, Map<String, Object> configParams) {
 		if (config == null) return;
 		for (final Entry<String, Object> e : configParams.entrySet())
