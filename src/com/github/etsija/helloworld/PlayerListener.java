@@ -44,6 +44,5 @@ public class PlayerListener implements Listener {
 		// Here you can print welcome messages for example
 		Player player = event.getPlayer();
 		player.sendMessage(ChatColor.GREEN + "Why hello, " + player.getName());
-
 	}
 }

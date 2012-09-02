@@ -50,12 +50,16 @@ public class HelloWorld extends JavaPlugin {
         
 		// Data structures for the default parameter values
 		final Map<String, Object> configParams = new HashMap<String, Object>();
-		final Map<String, Object> messageParams = new HashMap<String, Object>();
-		
 		configParams.put("general.debug", "true");
+		
+		final Map<String, Object> messageParams = new HashMap<String, Object>();
 		messageParams.put("welcome", "Why hello, ");
 		messageParams.put("testmessage", "This is a test message!");
 		
+		setDefaultValues(config, configParams);
+		setDefaultValues(messages, messageParams);
+		
+		/*
 		// If config does not include a default parameter, add it
 		for (final Entry<String, Object> e : configParams.entrySet())
 			if (!config.contains(e.getKey()))
@@ -63,6 +67,8 @@ public class HelloWorld extends JavaPlugin {
 		for (final Entry<String, Object> e : messageParams.entrySet())
 			if (!messages.contains(e.getKey()))
 				messages.set(e.getKey(), e.getValue());
+		*/
+		
 		saveYaml(configFile, config);
 		saveYaml(messagesFile, messages);
 		
@@ -85,6 +91,14 @@ public class HelloWorld extends JavaPlugin {
 	// This method is called when the plugin is disabled
 	public void onDisable() {
 		_log.info("[HelloWorld] disabled!");
+	}
+	
+	// Set a default value for a parameter if it doesn't already exist
+	public void setDefaultValues(FileConfiguration config, Map<String, Object> configParams) {
+		if (config == null) return;
+		for (final Entry<String, Object> e : configParams.entrySet())
+			if (!config.contains(e.getKey()))
+				config.set(e.getKey(), e.getValue());
 	}
 	
 	// Load a file from disk into its respective FileConfiguration
