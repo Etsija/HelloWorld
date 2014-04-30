@@ -2,6 +2,7 @@ package com.github.etsija.helloworld;
 
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,11 +32,11 @@ public class PlayerListener implements Listener {
 		// Here you can handle different stuff relating to the player interact event
 		final Action action = event.getAction(); // Actions
 		Player player = event.getPlayer(); // Player which fired the event
-		int itemInHand = player.getItemInHand().getTypeId(); // ID of item in hand
+		Material material = player.getItemInHand().getType();
 		Block block = event.getClickedBlock();
 		player.sendMessage("       player = " + player);
 		player.sendMessage("       action = " + action);
-		player.sendMessage(" item in hand = " + itemInHand);
+		player.sendMessage(" item in hand = " + material);
 		player.sendMessage("block clicked = " + block);
 	}
 	
